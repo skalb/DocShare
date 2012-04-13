@@ -9,10 +9,15 @@ Template.documentList.documents = ->
 Template.documentList.events = 
   'click #new-document': (e) ->
     name = $('#new-document-name').val()
+    callback = (result) ->
+      # result is supposed to contain the inserted _id
+      Router.setDocument(result)
     if name
       Documents.insert(
         name: name
         text: ""
+        ,
+        callback
       )
 
 Template.document.events = 
@@ -20,6 +25,9 @@ Template.document.events =
     Documents.remove(@_id)
   'click #edit-document': (e) ->
     Router.setDocument(@_id)
+
+Template.document.selected = ->
+    if Session.equals("document_id", this._id) then "selected" else ""
 
 Template.documentView.selectedDocument = ->
   document_id = Session.get("document_id")
