@@ -5,7 +5,7 @@
 <body>
   {{> documentList}}
   <hr>
-  {{> documentViews}}
+  {{> documentView}}
 </body>
 
 <template name="documentList">
@@ -31,17 +31,13 @@
   </div>
 </template>
 
-<template name="documentViews">
-  <div class="documentView">
-    {{#each selectedDocuments}}
-      {{> documentView}}
-    {{/each}}
-  </div>
-</template>
-
 <template name="documentView">
-  <div class="display">
-    <p>{{ name }}</p>
-    <textarea id="document-text" rows="10" cols="80">{{ text }}</textarea>
-  </div>
+  {{#if selectedDocument}}
+  {{#with selectedDocument}}
+    <div class="display">
+      <p>{{ name }}</p>
+      <textarea id="document-text" rows="10" cols="80">{{ text }}</textarea>
+    </div>
+  {{/with}}
+  {{/if}}
 </template>

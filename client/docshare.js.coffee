@@ -21,15 +21,16 @@ Template.document.events =
   'click #edit-document': (e) ->
     Router.setDocument(@_id)
 
-Template.documentViews.selectedDocuments = ->
+Template.documentView.selectedDocument = ->
   document_id = Session.get("document_id")
-  Documents.find(
+  Documents.findOne(
     _id: document_id
   )
 
 Template.documentView.events = 
   'keyup #document-text': (e) ->
-    sel = _id: @_id
+    # @_id should work here, but it doesn't
+    sel = _id: Session.get("document_id")
     mod = $set: text: $('#document-text').val()
     Documents.update(sel, mod)
 
